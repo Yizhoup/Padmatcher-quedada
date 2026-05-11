@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.TuApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Configuración del tema -->
+    </style>
+
+    <style name="MenuButton">
+
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">70dp</item>
+
+      <!--  <item name="android:background">@drawable/fondo_degradado</item> -->
+
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
+
+        <item name="android:fontFamily">sans-serif-medium</item>
+
+    </style>
+
+</resources>
