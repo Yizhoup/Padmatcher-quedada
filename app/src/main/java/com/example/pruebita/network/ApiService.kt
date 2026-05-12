@@ -2,14 +2,17 @@ package com.example.pruebita.network
 
 import com.example.pruebita.models.AchievementsResponse
 import com.example.pruebita.models.CourtDto
+import com.example.pruebita.models.CreatePartidoRequest
 import com.example.pruebita.models.LoginRequest
 import com.example.pruebita.models.MatchDto
 import com.example.pruebita.models.Partido
+import com.example.pruebita.models.ProfileResponse
 import com.example.pruebita.models.User
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Path
 
 interface ApiService {
@@ -21,6 +24,12 @@ interface ApiService {
 
     @GET("users")
     suspend fun getUsers(): retrofit2.Response<List<User>>
+
+    @POST("matches/")
+    suspend fun createPartido(
+        @Header("Authorization") authorization: String,
+        @Body partido: CreatePartidoRequest
+    ): Response<Partido>
 
     @GET("courts")
     suspend fun getCourts(): List<CourtDto>
@@ -35,4 +44,7 @@ interface ApiService {
     suspend fun getAchievements(
         @Path("id") userId: Int
     ): AchievementsResponse
+
+    @GET("players/profile/token/")
+    suspend fun getProfile(@Header("Authorization") authorization: String): Response<ProfileResponse>
 }
