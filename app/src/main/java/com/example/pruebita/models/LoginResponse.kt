@@ -1,7 +1,6 @@
 package com.example.pruebita.models
 
 data class LoginResponse(
-    val success: Boolean,
-    val token: String,
-    val username: String
+    val access_token: String,
+    val token_type: String
 )

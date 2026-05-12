@@ -61,12 +61,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     nameText.text = player.nombre
                     emailText.text = player.email
                     infoText.text = "Nivel: ${player.nivel ?: "-"}\nCiudad: ${player.ciudad ?: "-"}\nRol: ${player.rol}"
-                    statusText.text = "Datos cargados desde el backend"
+                    statusText.text = "Datos del usuario"
                 } else {
                     statusText.text = "No se pudo cargar el perfil (${response.code()})"
                 }
             } catch (e: Exception) {
-                statusText.text = "Error al conectar con el backend"
+                statusText.text = "No se pudo cargar el perfil"
             } finally {
                 refreshButton.isEnabled = true
             }
@@ -74,7 +74,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun showNoSession() {
-        statusText.text = "No hay una sesion iniciada"
+        statusText.text = "No hay sesion iniciada"
         nameText.text = "Usuario sin login"
         emailText.text = "Inicia sesion para ver tu perfil"
         infoText.text = "Nivel: -\nCiudad: -\nRol: -"

@@ -10,9 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.pruebita.MainActivity
 import com.example.pruebita.R
-import com.example.pruebita.models.LoginRequest
 import com.example.pruebita.network.RetrofitClient
 import com.example.pruebita.utils.Session
+import com.example.pruebita.utils.SessionManager
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -31,13 +31,11 @@ class LoginActivity : AppCompatActivity() {
         tvGoRegister = findViewById(R.id.tvGoRegister)
         btnLogin = findViewById(R.id.btnLogin)
 
-        // 🔵 ir a registro
         tvGoRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
         btnLogin.setOnClickListener {
-
             val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()
 
@@ -46,65 +44,64 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            lifecycleScope.launch {
+            doLogin(email, password)
+        }
+    }
 
-                try {
+    private fun doLogin(email: String, password: String) {
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitClient.api.login(email, password)
 
-                    Log.d("LOGIN", "email=$email password=$password")
+                if (response.isSuccessful) {
+                    val login = response.body()
 
-                    val response = RetrofitClient.api.login(
-                        LoginRequest(email, password)
-                    )
-
-                    if (response.isSuccessful) {
-
-                        val user = response.body()
-
-                        if (user != null) {
-
-                            Session.userId = user.id
-
-                            Toast.makeText(
-                                this@LoginActivity,
-                                "Login correcto",
-                                Toast.LENGTH_SHORT
-                            ).show()
-
-                            startActivity(
-                                Intent(this@LoginActivity, MainActivity::class.java)
-                            )
-                            finish()
-
-                        } else {
-                            Toast.makeText(
-                                this@LoginActivity,
-                                "Usuario vacío",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-
-                    } else {
-
-                        Log.e("LOGIN_ERROR", response.errorBody()?.string().toString())
+                    if (login != null) {
+                        saveUserSession(login.access_token)
 
                         Toast.makeText(
                             this@LoginActivity,
-                            "Credenciales incorrectas",
+                            "Login correcto",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                        finish()
+                    } else {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "No se pudo iniciar sesion",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-
-                } catch (e: Exception) {
-
-                    Log.e("LOGIN_EXCEPTION", e.toString())
-
+                } else {
+                    Log.e("LOGIN_ERROR", response.errorBody()?.string().toString())
                     Toast.makeText(
                         this@LoginActivity,
-                        "Error de conexión",
+                        "Credenciales incorrectas",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+            } catch (e: Exception) {
+                Log.e("LOGIN_EXCEPTION", e.toString())
+                Toast.makeText(
+                    this@LoginActivity,
+                    "Error de conexion",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
+    }
+
+    private suspend fun saveUserSession(token: String) {
+        val profileResponse = RetrofitClient.api.getProfile("Bearer $token")
+        val userId = if (profileResponse.isSuccessful) {
+            profileResponse.body()?.player?.id ?: 1
+        } else {
+            1
+        }
+
+        Session.userId = userId
+        SessionManager.saveSession(this, token, userId)
     }
 }

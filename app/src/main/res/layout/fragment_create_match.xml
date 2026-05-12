@@ -2,35 +2,38 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:clipToPadding="false">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:paddingStart="20dp"
+        android:paddingTop="34dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Crear quedada"
             android:textColor="@color/text"
-            android:textSize="26sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/box_section"
-            android:text="Rellena los datos principales del partido. Despues se enviara al backend con la sesion del usuario."
+            android:layout_marginTop="4dp"
+            android:text="Completa los datos para publicar un partido."
             android:textColor="@color/muted"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="22dp"
             android:background="@drawable/box_section"
             android:orientation="vertical">
 
@@ -61,7 +64,7 @@
             <Spinner
                 android:id="@+id/spinnerDistrict"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="46dp"
                 android:layout_marginTop="6dp"
                 android:background="@drawable/input_box" />
 
@@ -76,7 +79,7 @@
             <Spinner
                 android:id="@+id/spinnerCourt"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="46dp"
                 android:layout_marginTop="6dp"
                 android:background="@drawable/input_box" />
         </LinearLayout>
@@ -118,21 +121,25 @@
                     <TextView
                         android:id="@+id/tvSelectedDate"
                         android:layout_width="match_parent"
-                        android:layout_height="38dp"
+                        android:layout_height="42dp"
                         android:layout_marginTop="6dp"
                         android:background="@drawable/input_box"
                         android:gravity="center_vertical"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
                         android:text="Sin fecha"
                         android:textColor="@color/text" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnPickDate"
                         android:layout_width="match_parent"
-                        android:layout_height="46dp"
+                        android:layout_height="42dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/button_light"
                         android:text="Elegir"
-                        android:textColor="@color/primary" />
+                        android:textAllCaps="false"
+                        android:textColor="@color/primary"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <Space
@@ -155,21 +162,25 @@
                     <TextView
                         android:id="@+id/tvSelectedTime"
                         android:layout_width="match_parent"
-                        android:layout_height="38dp"
+                        android:layout_height="42dp"
                         android:layout_marginTop="6dp"
                         android:background="@drawable/input_box"
                         android:gravity="center_vertical"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
                         android:text="Sin hora"
                         android:textColor="@color/text" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnPickTime"
                         android:layout_width="match_parent"
-                        android:layout_height="46dp"
+                        android:layout_height="42dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/button_light"
                         android:text="Elegir"
-                        android:textColor="@color/primary" />
+                        android:textAllCaps="false"
+                        android:textColor="@color/primary"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -200,7 +211,7 @@
             <Spinner
                 android:id="@+id/spinnerLevel"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="46dp"
                 android:layout_marginTop="6dp"
                 android:background="@drawable/input_box" />
 
@@ -215,7 +226,7 @@
             <Spinner
                 android:id="@+id/spinnerPlayers"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="46dp"
                 android:layout_marginTop="6dp"
                 android:background="@drawable/input_box" />
 
@@ -254,18 +265,19 @@
             android:textColor="@color/text"
             android:textSize="14sp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnCreateMatch"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/button_style"
             android:text="Crear quedada"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
         <Space
             android:layout_width="1dp"
-            android:layout_height="18dp" />
+            android:layout_height="90dp" />
     </LinearLayout>
 </ScrollView>

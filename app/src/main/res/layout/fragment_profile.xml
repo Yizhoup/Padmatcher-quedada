@@ -85,36 +85,29 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/box_section"
-            android:text="Este perfil usa el token de la sesion para pedir los datos al backend. Si no hay login, se muestra el aviso."
-            android:textColor="@color/muted"
-            android:textSize="14sp" />
-
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnRefreshProfile"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginTop="18dp"
             android:background="@drawable/button_style"
             android:text="Actualizar perfil"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_light"
             android:text="Cerrar sesion"
+            android:textAllCaps="false"
             android:textColor="@color/primary" />
 
         <Space
             android:layout_width="1dp"
-            android:layout_height="18dp" />
+            android:layout_height="90dp" />
     </LinearLayout>
 </ScrollView>
