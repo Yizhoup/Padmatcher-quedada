@@ -1,7 +1,11 @@
 <resources>
-    <color name="primary">#3F51B5</color>
-    <color name="secondary">#6200EE</color>
-    <color name="background">#F5F5F5</color>
+    <color name="primary">#2E7D62</color>
+    <color name="secondary">#6B4BB8</color>
+    <color name="background">#F7F5FA</color>
     <color name="white">#FFFFFF</color>
-    <color name="text">#333333</color>
+    <color name="text">#2F2A35</color>
+    <color name="muted">#6F6876</color>
+    <color name="border">#DDD6E8</color>
+    <color name="soft_green">#EAF7F1</color>
+    <color name="soft_purple">#EFE7FF</color>
 </resources>

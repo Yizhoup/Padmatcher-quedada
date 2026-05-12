@@ -13,7 +13,13 @@
         android:icon="@drawable/ic_players"/>
 
     <item
-        android:id="@+id/nav_achievements"
-        android:title="Achievements"
-        android:icon="@drawable/ic_achievements"/>
+        android:id="@+id/nav_create_match"
+        android:title="Crear"
+        android:icon="@drawable/ic_calendar"/>
+
+    <item
+        android:id="@+id/nav_profile"
+        android:title="Perfil"
+        android:icon="@drawable/ic_profile"/>
+
 </menu>

@@ -3,9 +3,10 @@ package com.example.pruebita
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.pruebita.ui.achievements.AchievementsFragment
 import com.example.pruebita.ui.home.HomeFragment
+import com.example.pruebita.ui.matches.CreateMatchFragment
 import com.example.pruebita.ui.players.PlayersFragment
+import com.example.pruebita.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
 
@@ -32,8 +33,12 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(PlayersFragment())
                     true
                 }
-                R.id.nav_achievements -> {
-                    replaceFragment(AchievementsFragment())
+                R.id.nav_create_match -> {
+                    replaceFragment(CreateMatchFragment())
+                    true
+                }
+                R.id.nav_profile -> {
+                    replaceFragment(ProfileFragment())
                     true
                 }
                 else -> false
