@@ -6,6 +6,7 @@ import com.example.pruebita.models.Inscription
 import com.example.pruebita.models.JoinMatchResponse
 import com.example.pruebita.models.LoginResponse
 import com.example.pruebita.models.MatchPublic
+import com.example.pruebita.models.NotificationItem
 import com.example.pruebita.models.PlayerPublic
 import com.example.pruebita.models.ProfileResponse
 import retrofit2.Response
@@ -16,6 +17,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.DELETE
 import retrofit2.http.Path
 
 interface ApiService {
@@ -57,6 +59,22 @@ interface ApiService {
     suspend fun getProfile(
         @Header("Authorization") authorization: String
     ): Response<ProfileResponse>
+
+    @GET("notifications/")
+    suspend fun getNotifications(
+        @Header("Authorization") authorization: String
+    ): Response<List<NotificationItem>>
+
+    @PATCH("notifications/read")
+    suspend fun markNotificationsRead(
+        @Header("Authorization") authorization: String
+    ): Response<Unit>
+
+    @DELETE("notifications/{notificationId}")
+    suspend fun deleteNotification(
+        @Path("notificationId") notificationId: Int,
+        @Header("Authorization") authorization: String
+    ): Response<Unit>
 
     @FormUrlEncoded
     @POST("auth/token")
