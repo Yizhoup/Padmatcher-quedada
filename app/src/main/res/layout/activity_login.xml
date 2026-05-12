@@ -36,10 +36,18 @@
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Entrar"
-            android:layout_marginTop="24dp"/>
+            android:text="Login"/>
+
+        <TextView
+            android:id="@+id/tvGoRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿No tienes cuenta? Regístrate"
+            android:textColor="#888888"
+            android:textSize="14sp"
+            android:paddingTop="16dp"/>
 
     </LinearLayout>
 

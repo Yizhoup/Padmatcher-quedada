@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.pruebita.R
+import com.example.pruebita.network.RetrofitClient
+import kotlinx.coroutines.launch
 
 class AchievementsFragment : Fragment() {
 
@@ -14,7 +17,7 @@ class AchievementsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return inflater.inflate(R.layout.fragment_achievements, container, false)
     }
 
@@ -26,20 +29,26 @@ class AchievementsFragment : Fragment() {
         val tvLosses = view.findViewById<TextView>(R.id.tvLosses)
         val tvWinRate = view.findViewById<TextView>(R.id.tvWinRate)
 
-        // 🔥 DATOS DE EJEMPLO
-        val matchesPlayed = 25
-        val wins = 18
-        val losses = matchesPlayed - wins
+        val userId = 1
 
-        val winRate = if (matchesPlayed > 0) {
-            (wins * 100) / matchesPlayed
-        } else {
-            0
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+
+                val response = RetrofitClient.api.getAchievements(userId)
+
+                tvMatchesPlayed.text = "Partidos jugados: ${response.matchesPlayed}"
+                tvWins.text = "Victorias: ${response.wins}"
+                tvLosses.text = "Derrotas: ${response.losses}"
+                tvWinRate.text = "Ratio victoria: ${response.winRate}%"
+
+            } catch (e: Exception) {
+
+                tvMatchesPlayed.text = "Error: ${e.message}"
+                tvWins.text = ""
+                tvLosses.text = ""
+                tvWinRate.text = ""
+
+            }
         }
-
-        tvMatchesPlayed.text = "Partidos jugados: $matchesPlayed"
-        tvWins.text = "Victorias: $wins"
-        tvLosses.text = "Derrotas: $losses"
-        tvWinRate.text = "Ratio victoria: $winRate%"
     }
 }

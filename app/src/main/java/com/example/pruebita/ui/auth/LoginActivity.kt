@@ -2,22 +2,25 @@ package com.example.pruebita.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.util.Log
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.pruebita.MainActivity
 import com.example.pruebita.R
+import com.example.pruebita.models.LoginRequest
 import com.example.pruebita.network.RetrofitClient
-import com.example.pruebita.models.UserRequest
+import com.example.pruebita.utils.Session
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
-    private lateinit var btnLogin: Button
+    private lateinit var tvGoRegister: TextView
+    private lateinit var btnLogin: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +28,16 @@ class LoginActivity : AppCompatActivity() {
 
         etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
+        tvGoRegister = findViewById(R.id.tvGoRegister)
         btnLogin = findViewById(R.id.btnLogin)
 
+        // 🔵 ir a registro
+        tvGoRegister.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
+
         btnLogin.setOnClickListener {
+
             val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()
 
@@ -36,16 +46,64 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val loginCorrecto = true
+            lifecycleScope.launch {
 
-            if (loginCorrecto) {
-                Toast.makeText(this, "Login correcto", Toast.LENGTH_SHORT).show()
+                try {
 
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-                Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
+                    Log.d("LOGIN", "email=$email password=$password")
+
+                    val response = RetrofitClient.api.login(
+                        LoginRequest(email, password)
+                    )
+
+                    if (response.isSuccessful) {
+
+                        val user = response.body()
+
+                        if (user != null) {
+
+                            Session.userId = user.id
+
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "Login correcto",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            startActivity(
+                                Intent(this@LoginActivity, MainActivity::class.java)
+                            )
+                            finish()
+
+                        } else {
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "Usuario vacío",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                    } else {
+
+                        Log.e("LOGIN_ERROR", response.errorBody()?.string().toString())
+
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Credenciales incorrectas",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                } catch (e: Exception) {
+
+                    Log.e("LOGIN_EXCEPTION", e.toString())
+
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Error de conexión",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }

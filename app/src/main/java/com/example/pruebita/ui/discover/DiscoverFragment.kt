@@ -33,14 +33,8 @@ class DiscoverFragment : Fragment() {
         lifecycleScope.launch {
 
             try {
-                val response = RetrofitClient.api.getPartidos()
-
-                if (response.isSuccessful) {
-                    val partidos = response.body()
-                    Log.d("API", "Partidos: $partidos")
-                } else {
-                    Log.e("API", "Error response")
-                }
+                val partidos = RetrofitClient.api.getPartidos()
+                Log.d("API", "Partidos: $partidos")
 
             } catch (e: Exception) {
                 Log.e("API", "Error: ${e.message}")

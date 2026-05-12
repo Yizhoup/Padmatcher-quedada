@@ -11,8 +11,9 @@
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config">
 
+        <!-- 🔐 LOGIN = PANTALLA INICIAL -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.auth.LoginActivity"
             android:exported="true">
 
             <intent-filter>
@@ -23,13 +24,12 @@
         </activity>
 
         <activity
-            android:name=".ui.auth.LoginActivity"
-            android:exported="false" />
-
-        <activity
             android:name=".ui.auth.RegisterActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
 
     </application>
 
